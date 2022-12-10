@@ -27,9 +27,13 @@
   color: var(--white);
   text-decoration: none;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   font-size: 1.3rem;
+}
+
+.icon {
+  margin-left: 10px;
 }
 
 .sidebar-links li.active {
