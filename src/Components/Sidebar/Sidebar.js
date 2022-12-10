@@ -1,4 +1,5 @@
 import React from "react";
+import "./Sidebar.css";
 
 export default function Sidebar() {
   return (
@@ -9,7 +10,7 @@ export default function Sidebar() {
         <li>
           <a href="#">صفحه اصلی</a>
         </li>
-        <li>
+        <li className="active">
           <a href="#">محصولات</a>
         </li>
         <li>
