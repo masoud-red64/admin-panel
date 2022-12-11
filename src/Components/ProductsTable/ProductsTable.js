@@ -11,7 +11,7 @@ export default function ProductsTable() {
         <th>موجودی</th>
       </tr>
 
-      <tr>
+      <tr className="products-table-tr">
         <td>
           <img
             src="/images/oil.jpeg"
