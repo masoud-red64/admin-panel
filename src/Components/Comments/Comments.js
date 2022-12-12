@@ -6,7 +6,6 @@ export default function Comments() {
   return (
     <>
       <ErrorBox msg={"هیج کامنتی یافت نشد"} />
-      <DeleteModal />
     </>
   );
 }
