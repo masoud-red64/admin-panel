@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import "./ProductsTable.css";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import DetailsModal from "../DetailsModal/DetailsModal";
+import EditModal from "../EditModal/EditModal";
 
 export default function ProductsTable() {
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
+  const [isShowEditModal, setIsShowEditModal] = useState(false);
 
   const deleteModalSubmitAction = () => {
     setIsShowDeleteModal(false);
@@ -16,6 +18,11 @@ export default function ProductsTable() {
 
   const closeDetailsModal = () => {
     setIsShowDetailsModal(false);
+  };
+
+  const updateProductInfos = (event) => {
+    event.preventDefault();
+    console.log("taeed");
   };
 
   return (
@@ -54,7 +61,12 @@ export default function ProductsTable() {
               >
                 حذف
               </button>
-              <button className="products-table-btn">ویرایش</button>
+              <button
+                className="products-table-btn"
+                onClick={() => setIsShowEditModal(true)}
+              >
+                ویرایش
+              </button>
             </td>
           </tr>
         </tbody>
@@ -66,6 +78,12 @@ export default function ProductsTable() {
         />
       )}
       {isShowDetailsModal && <DetailsModal onHide={closeDetailsModal} />}
+      {isShowEditModal && (
+        <EditModal
+          onClose={() => setIsShowEditModal(false)}
+          onSubmit={updateProductInfos}
+        ></EditModal>
+      )}
     </>
   );
 }
