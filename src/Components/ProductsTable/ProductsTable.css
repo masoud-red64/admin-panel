@@ -43,3 +43,25 @@
   background-color: var(--blue);
   margin-right: 20px;
 }
+
+/* Start Edit Modal Childs style */
+
+.edit-products-form-group {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  width: 100%;
+  background-color: #f4f4f4;
+  padding: 0 8px;
+  border-radius: 10px;
+}
+
+.edit-product-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: unset;
+  padding: 8px 10px;
+}
+/* Finish Edit Modal Childs style */
