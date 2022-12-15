@@ -4,6 +4,7 @@ import DeleteModal from "../DeleteModal/DeleteModal";
 import DetailsModal from "../DetailsModal/DetailsModal";
 import EditModal from "../EditModal/EditModal";
 import { AiOutlineDollarCircle } from "react-icons/ai";
+import ErrorBox from "../ErrorBox/ErrorBox";
 
 export default function ProductsTable() {
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
@@ -38,53 +39,58 @@ export default function ProductsTable() {
 
   return (
     <>
-      <table className="products-table">
-        <thead>
-          <tr className="products-table-heading-tr">
-            <th>عکس</th>
-            <th>اسم</th>
-            <th>قیمت</th>
-            <th>موجودی</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {allProducts.map((product) => (
-            <tr key={product.id} className="products-table-tr">
-              <td>
-                <img
-                  src={product.img}
-                  alt="oil image"
-                  className="products-table-img"
-                />
-              </td>
-              <td>{product.title}</td>
-              <td>{product.price} تومان</td>
-              <td>{product.count}</td>
-              <td>
-                <button
-                  className="products-table-btn"
-                  onClick={() => setIsShowDetailsModal(true)}
-                >
-                  جزییات
-                </button>
-                <button
-                  className="products-table-btn"
-                  onClick={() => setIsShowDeleteModal(true)}
-                >
-                  حذف
-                </button>
-                <button
-                  className="products-table-btn"
-                  onClick={() => setIsShowEditModal(true)}
-                >
-                  ویرایش
-                </button>
-              </td>
+      {allProducts.length ? (
+        <table className="products-table">
+          <thead>
+            <tr className="products-table-heading-tr">
+              <th>عکس</th>
+              <th>اسم</th>
+              <th>قیمت</th>
+              <th>موجودی</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {allProducts.map((product) => (
+              <tr key={product.id} className="products-table-tr">
+                <td>
+                  <img
+                    src={product.img}
+                    alt="oil image"
+                    className="products-table-img"
+                  />
+                </td>
+                <td>{product.title}</td>
+                <td>{product.price} تومان</td>
+                <td>{product.count}</td>
+                <td>
+                  <button
+                    className="products-table-btn"
+                    onClick={() => setIsShowDetailsModal(true)}
+                  >
+                    جزییات
+                  </button>
+                  <button
+                    className="products-table-btn"
+                    onClick={() => setIsShowDeleteModal(true)}
+                  >
+                    حذف
+                  </button>
+                  <button
+                    className="products-table-btn"
+                    onClick={() => setIsShowEditModal(true)}
+                  >
+                    ویرایش
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <ErrorBox msg={"هیج محصولی یافت نشد"} />
+      )}
+
       {isShowDeleteModal && (
         <DeleteModal
           submit={deleteModalSubmitAction}

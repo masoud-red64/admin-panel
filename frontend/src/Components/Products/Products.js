@@ -6,7 +6,6 @@ export default function Products() {
   return (
     <>
       <AddNewProduct />
-      <ErrorBox msg={"هیج محصولی یافت نشد"} />
       <ProductsTable />
     </>
   );
