@@ -5,6 +5,8 @@ import DetailsModal from "../DetailsModal/DetailsModal";
 import EditModal from "../EditModal/EditModal";
 import { AiOutlineDollarCircle } from "react-icons/ai";
 import ErrorBox from "../ErrorBox/ErrorBox";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductsTable() {
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
@@ -13,6 +15,18 @@ export default function ProductsTable() {
   const [allProducts, setAllProducts] = useState([]);
   const [productID, setProductID] = useState(null);
   const [mainProductInfos, setMainProductInfos] = useState({});
+
+  const notify = () =>
+    toast.success("😎محصول با موفقیت حذف شد", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
 
   useEffect(() => {
     getAllProducts();
@@ -38,6 +52,7 @@ export default function ProductsTable() {
         setIsShowDeleteModal(false);
         getAllProducts();
       });
+    notify();
   };
   const deleteModalCancelAction = () => {
     setIsShowDeleteModal(false);
@@ -186,6 +201,10 @@ export default function ProductsTable() {
           </div>
         </EditModal>
       )}
+
+      <div>
+        <ToastContainer />
+      </div>
     </>
   );
 }
