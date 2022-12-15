@@ -24,8 +24,19 @@ export default function ProductsTable() {
   const [productNewSale, setProductNewSale] = useState("");
   const [productNewColors, setProductNewColors] = useState("");
 
-  const notify = () =>
+  const deleteNotify = () =>
     toast.success("😎محصول با موفقیت حذف شد", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  const editNotify = () =>
+    toast.success("😎محصول با موفقیت ادیت شد", {
       position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,
@@ -60,7 +71,7 @@ export default function ProductsTable() {
         setIsShowDeleteModal(false);
         getAllProducts();
       });
-    notify();
+    deleteNotify();
   };
   const deleteModalCancelAction = () => {
     setIsShowDeleteModal(false);
@@ -73,6 +84,30 @@ export default function ProductsTable() {
   const updateProductInfos = (event) => {
     event.preventDefault();
     console.log("taeed");
+    const productsNewInfos = {
+      title: productNewTitle,
+      price: productNewPrice,
+      count: productNewCount,
+      img: productNewImg,
+      popularity: productNewPopularity,
+      sale: productNewSale,
+      colors: productNewColors,
+    };
+
+    fetch(`http://localhost:7000/api/products/${productID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productsNewInfos),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        getAllProducts();
+      });
+
+    setIsShowEditModal(false);
+    editNotify();
   };
 
   return (
@@ -125,6 +160,7 @@ export default function ProductsTable() {
                     className="products-table-btn"
                     onClick={() => {
                       setIsShowEditModal(true);
+                      setProductID(product.id);
                       setProductNewTitle(product.title);
                       setProductNewPrice(product.price);
                       setProductNewCount(product.count);
@@ -185,6 +221,7 @@ export default function ProductsTable() {
               placeholder="عنوان جدید را وارد کنید"
               className="edit-product-input"
               value={productNewTitle}
+              onChange={(event) => setProductNewTitle(event.target.value)}
             />
           </div>
           <div className="edit-products-form-group">
@@ -196,6 +233,7 @@ export default function ProductsTable() {
               placeholder="قیمت جدید را وارد کنید"
               className="edit-product-input"
               value={productNewPrice}
+              onChange={(event) => setProductNewPrice(event.target.value)}
             />
           </div>
           <div className="edit-products-form-group">
@@ -207,6 +245,7 @@ export default function ProductsTable() {
               placeholder="موجودی جدید را وارد کنید"
               className="edit-product-input"
               value={productNewCount}
+              onChange={(event) => setProductNewCount(event.target.value)}
             />
           </div>
           <div className="edit-products-form-group">
@@ -218,6 +257,7 @@ export default function ProductsTable() {
               placeholder="آدرس کاور جدید را وارد کنید"
               className="edit-product-input"
               value={productNewImg}
+              onChange={(event) => setProductNewImg(event.target.value)}
             />
           </div>
           <div className="edit-products-form-group">
@@ -229,6 +269,7 @@ export default function ProductsTable() {
               placeholder="محبوبیت جدید را وارد کنید"
               className="edit-product-input"
               value={productNewPopularity}
+              onChange={(event) => setProductNewPopularity(event.target.value)}
             />
           </div>
           <div className="edit-products-form-group">
@@ -240,6 +281,7 @@ export default function ProductsTable() {
               placeholder="میزان فروش جدید را وارد کنید"
               className="edit-product-input"
               value={productNewSale}
+              onChange={(event) => setProductNewSale(event.target.value)}
             />
           </div>
           <div className="edit-products-form-group">
@@ -251,6 +293,7 @@ export default function ProductsTable() {
               placeholder="تعداد رنگ بندی جدید را وارد کنید"
               className="edit-product-input"
               value={productNewColors}
+              onChange={(event) => setProductNewColors(event.target.value)}
             />
           </div>
         </EditModal>
