@@ -16,6 +16,14 @@ export default function ProductsTable() {
   const [productID, setProductID] = useState(null);
   const [mainProductInfos, setMainProductInfos] = useState({});
 
+  const [productNewTitle, setProductNewTitle] = useState("");
+  const [productNewPrice, setProductNewPrice] = useState("");
+  const [productNewCount, setProductNewCount] = useState("");
+  const [productNewImg, setProductNewImg] = useState("");
+  const [productNewPopularity, setProductNewPopularity] = useState("");
+  const [productNewSale, setProductNewSale] = useState("");
+  const [productNewColors, setProductNewColors] = useState("");
+
   const notify = () =>
     toast.success("😎محصول با موفقیت حذف شد", {
       position: "top-center",
@@ -115,7 +123,16 @@ export default function ProductsTable() {
                   </button>
                   <button
                     className="products-table-btn"
-                    onClick={() => setIsShowEditModal(true)}
+                    onClick={() => {
+                      setIsShowEditModal(true);
+                      setProductNewTitle(product.title);
+                      setProductNewPrice(product.price);
+                      setProductNewCount(product.count);
+                      setProductNewImg(product.img);
+                      setProductNewPopularity(product.popularity);
+                      setProductNewSale(product.sale);
+                      setProductNewColors(product.colors);
+                    }}
                   >
                     ویرایش
                   </button>
@@ -167,6 +184,7 @@ export default function ProductsTable() {
               type="text"
               placeholder="عنوان جدید را وارد کنید"
               className="edit-product-input"
+              value={productNewTitle}
             />
           </div>
           <div className="edit-products-form-group">
@@ -175,8 +193,9 @@ export default function ProductsTable() {
             </span>
             <input
               type="text"
-              placeholder="عنوان جدید را وارد کنید"
+              placeholder="قیمت جدید را وارد کنید"
               className="edit-product-input"
+              value={productNewPrice}
             />
           </div>
           <div className="edit-products-form-group">
@@ -185,8 +204,9 @@ export default function ProductsTable() {
             </span>
             <input
               type="text"
-              placeholder="عنوان جدید را وارد کنید"
+              placeholder="موجودی جدید را وارد کنید"
               className="edit-product-input"
+              value={productNewCount}
             />
           </div>
           <div className="edit-products-form-group">
@@ -195,8 +215,42 @@ export default function ProductsTable() {
             </span>
             <input
               type="text"
-              placeholder="عنوان جدید را وارد کنید"
+              placeholder="آدرس کاور جدید را وارد کنید"
               className="edit-product-input"
+              value={productNewImg}
+            />
+          </div>
+          <div className="edit-products-form-group">
+            <span>
+              <AiOutlineDollarCircle />
+            </span>
+            <input
+              type="text"
+              placeholder="محبوبیت جدید را وارد کنید"
+              className="edit-product-input"
+              value={productNewPopularity}
+            />
+          </div>
+          <div className="edit-products-form-group">
+            <span>
+              <AiOutlineDollarCircle />
+            </span>
+            <input
+              type="text"
+              placeholder="میزان فروش جدید را وارد کنید"
+              className="edit-product-input"
+              value={productNewSale}
+            />
+          </div>
+          <div className="edit-products-form-group">
+            <span>
+              <AiOutlineDollarCircle />
+            </span>
+            <input
+              type="text"
+              placeholder="تعداد رنگ بندی جدید را وارد کنید"
+              className="edit-product-input"
+              value={productNewColors}
             />
           </div>
         </EditModal>
