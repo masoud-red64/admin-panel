@@ -3,6 +3,7 @@ import DeleteModal from "../DeleteModal/DeleteModal";
 import ErrorBox from "../ErrorBox/ErrorBox";
 import "./Comments.css";
 import DetailsModal from "../DetailsModal/DetailsModal";
+import EditModal from "../EditModal/EditModal";
 
 export default function Comments() {
   const [allComments, setAllComments] = useState([]);
@@ -10,6 +11,7 @@ export default function Comments() {
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const [mainCommentBody, setMainCommentBody] = useState("");
   const [commentID, setCommentID] = useState(null);
+  const [isShowEditModal, setIsShowEditModal] = useState(false);
 
   useEffect(() => {
     getAllComments();
@@ -29,6 +31,25 @@ export default function Comments() {
       setIsShowDeleteModal(false);
       getAllComments();
     });
+  };
+
+  const updateComment = (event) => {
+    event.preventDefault();
+
+    fetch(`http://localhost:7000/api/comments/${commentID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        body: mainCommentBody,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        getAllComments();
+        setIsShowEditModal(false);
+      });
   };
 
   return (
@@ -72,7 +93,16 @@ export default function Comments() {
                   >
                     حذف
                   </button>
-                  <button className="products-table-btn">ویرایش</button>
+                  <button
+                    className="products-table-btn"
+                    onClick={() => {
+                      setIsShowEditModal(true);
+                      setMainCommentBody(comment.body);
+                      setCommentID(comment.id);
+                    }}
+                  >
+                    ویرایش
+                  </button>
                   <button className="products-table-btn">پاسخ</button>
                   <button className="products-table-btn">تایید</button>
                 </td>
@@ -101,6 +131,18 @@ export default function Comments() {
           cancel={() => setIsShowDeleteModal(false)}
           submit={deleteComment}
         />
+      )}
+
+      {isShowEditModal && (
+        <EditModal
+          onClose={() => setIsShowEditModal(false)}
+          onSubmit={updateComment}
+        >
+          <textarea
+            value={mainCommentBody}
+            onChange={(event) => setMainCommentBody(event.target.value)}
+          ></textarea>
+        </EditModal>
       )}
     </div>
   );
