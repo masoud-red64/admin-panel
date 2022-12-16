@@ -12,6 +12,7 @@ export default function Comments() {
   const [mainCommentBody, setMainCommentBody] = useState("");
   const [commentID, setCommentID] = useState(null);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
+  const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
 
   useEffect(() => {
     getAllComments();
@@ -50,6 +51,11 @@ export default function Comments() {
         getAllComments();
         setIsShowEditModal(false);
       });
+  };
+
+  const acceptComment = () => {
+    setIsShowAcceptModal(false);
+    console.log("کامنت تایید شد");
   };
 
   return (
@@ -104,7 +110,14 @@ export default function Comments() {
                     ویرایش
                   </button>
                   <button className="products-table-btn">پاسخ</button>
-                  <button className="products-table-btn">تایید</button>
+                  <button
+                    className="products-table-btn"
+                    onClick={() => {
+                      setIsShowAcceptModal(true);
+                    }}
+                  >
+                    تایید
+                  </button>
                 </td>
               </tr>
             ))}
@@ -130,6 +143,7 @@ export default function Comments() {
         <DeleteModal
           cancel={() => setIsShowDeleteModal(false)}
           submit={deleteComment}
+          title={"آیا از حذف اطمینان دارید؟"}
         />
       )}
 
@@ -143,6 +157,14 @@ export default function Comments() {
             onChange={(event) => setMainCommentBody(event.target.value)}
           ></textarea>
         </EditModal>
+      )}
+
+      {isShowAcceptModal && (
+        <DeleteModal
+          cancel={() => setIsShowAcceptModal(false)}
+          submit={acceptComment}
+          title={"آیا از تایید اطمینان دارید؟"}
+        />
       )}
     </div>
   );
