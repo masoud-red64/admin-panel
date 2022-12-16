@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import ErrorBox from "../ErrorBox/ErrorBox";
 import "./Comments.css";
+import DetailsModal from "../DetailsModal/DetailsModal";
 
 export default function Comments() {
   const [allComments, setAllComments] = useState([]);
+  const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
+  const [mainCommentBody, setMainCommentBody] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:7000/api/comments/")
@@ -30,7 +33,15 @@ export default function Comments() {
                 <td>{comment.userID}</td>
                 <td>{comment.productID}</td>
                 <td>
-                  <button className="products-table-btn">دیدن متن</button>
+                  <button
+                    className="products-table-btn"
+                    onClick={() => {
+                      setMainCommentBody(comment.body);
+                      setIsShowDetailsModal(true);
+                    }}
+                  >
+                    دیدن متن
+                  </button>
                 </td>
                 <td>{comment.date}</td>
                 <td>{comment.hour}</td>
@@ -46,6 +57,18 @@ export default function Comments() {
         </table>
       ) : (
         <ErrorBox msg={"هیج کامنتی یافت نشد"} />
+      )}
+
+      {isShowDetailsModal && (
+        <DetailsModal onHide={() => setIsShowDetailsModal(false)}>
+          <p className="text-modal">{mainCommentBody}</p>
+          <button
+            className="text-modal-close-btn"
+            onClick={() => setIsShowDetailsModal(false)}
+          >
+            بستن
+          </button>
+        </DetailsModal>
       )}
     </div>
   );
