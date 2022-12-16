@@ -8,11 +8,11 @@ import ErrorBox from "../ErrorBox/ErrorBox";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function ProductsTable() {
+export default function ProductsTable({ allProducts, getAllProducts }) {
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
-  const [allProducts, setAllProducts] = useState([]);
+
   const [productID, setProductID] = useState(null);
   const [mainProductInfos, setMainProductInfos] = useState({});
 
@@ -46,19 +46,6 @@ export default function ProductsTable() {
       progress: undefined,
       theme: "dark",
     });
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-
-  const getAllProducts = () => {
-    fetch("http://localhost:7000/api/products/")
-      .then((res) => {
-        console.log(res);
-        return res.json();
-      })
-      .then((products) => setAllProducts(products));
-  };
 
   const deleteModalSubmitAction = () => {
     console.log("delete shod");
@@ -199,7 +186,7 @@ export default function ProductsTable() {
             </thead>
             <tbody>
               <tr>
-                <td>{mainProductInfos.popularity}</td>
+                <td>{mainProductInfos.popularity}%</td>
                 <td>{Number(mainProductInfos.sale).toLocaleString()}</td>
                 <td>{mainProductInfos.colors}</td>
               </tr>

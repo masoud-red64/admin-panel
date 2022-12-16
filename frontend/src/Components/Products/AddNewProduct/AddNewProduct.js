@@ -10,7 +10,7 @@ import { IoMdColorPalette } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function AddNewProduct() {
+export default function AddNewProduct({ getAllProducts }) {
   const [newProductTitle, setNewProductTitle] = useState("");
   const [newProductPrice, setNewProductPrice] = useState("");
   const [newProductCount, setNewProductCount] = useState("");
@@ -50,7 +50,12 @@ export default function AddNewProduct() {
       body: JSON.stringify(newProduct),
     })
       .then((res) => res.json())
-      .then((result) => console.log(result));
+      .then((result) => {
+        console.log(result);
+        getAllProducts();
+        emptytInputs();
+      });
+
     if (
       newProductTitle &&
       newProductPrice &&
@@ -64,6 +69,16 @@ export default function AddNewProduct() {
     } else {
       alert("همه ی موارد را تکمیل کنید");
     }
+  };
+
+  const emptytInputs = () => {
+    setNewProductTitle("");
+    setNewProductPrice("");
+    setNewProductCount("");
+    setNewProductImg("");
+    setNewProductPopularity("");
+    setNewProductSale("");
+    setNewProductColors("");
   };
 
   return (
