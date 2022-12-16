@@ -54,8 +54,17 @@ export default function Comments() {
   };
 
   const acceptComment = () => {
-    setIsShowAcceptModal(false);
     console.log("کامنت تایید شد");
+
+    fetch(`http://localhost:7000/api/comments/accept/${commentID}`, {
+      method: "POST",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setIsShowAcceptModal(false);
+        getAllComments();
+      });
   };
 
   return (
@@ -110,14 +119,17 @@ export default function Comments() {
                     ویرایش
                   </button>
                   <button className="products-table-btn">پاسخ</button>
-                  <button
-                    className="products-table-btn"
-                    onClick={() => {
-                      setIsShowAcceptModal(true);
-                    }}
-                  >
-                    تایید
-                  </button>
+                  {comment.isAccept === 0 && (
+                    <button
+                      className="products-table-btn"
+                      onClick={() => {
+                        setIsShowAcceptModal(true);
+                        setCommentID(comment.id);
+                      }}
+                    >
+                      تایید
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
