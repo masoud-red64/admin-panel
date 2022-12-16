@@ -69,7 +69,15 @@ export default function Comments() {
   };
 
   const rejectComment = () => {
-    setIsShowRejectModal(false);
+    fetch(`http://localhost:7000/api/comments/reject/${commentID}`, {
+      method: "POST",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setIsShowRejectModal(false);
+        getAllComments();
+      });
   };
 
   return (
