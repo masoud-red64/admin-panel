@@ -11,6 +11,17 @@ export default function Users() {
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [userID, setUserID] = useState(null);
 
+  const [userNewFirstName, setUserNewFirstName] = useState("");
+  const [userNewLastName, setUserNewLastName] = useState("");
+  const [userNewUsername, setUserNewUsername] = useState("");
+  const [userNewPassword, setUserNewPassword] = useState("");
+  const [userNewPhone, setUserNewPhone] = useState("");
+  const [userNewCity, setUserNewCity] = useState("");
+  const [userNewEmail, setUserNewEmail] = useState("");
+  const [userNewAddress, setUserNewAddress] = useState("");
+  const [userNewScore, setUserNewScore] = useState("");
+  const [userNewBuy, setUserNewBuy] = useState("");
+
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -77,6 +88,16 @@ export default function Users() {
                     onClick={() => {
                       setIsShowEditModal(true);
                       setUserID(user.id);
+                      setUserNewFirstName(user.firsname);
+                      setUserNewLastName(user.lastname);
+                      setUserNewUsername(user.username);
+                      setUserNewPassword(user.password);
+                      setUserNewPhone(user.phone);
+                      setUserNewCity(user.city);
+                      setUserNewEmail(user.email);
+                      setUserNewAddress(user.address);
+                      setUserNewScore(user.score);
+                      setUserNewBuy(user.buy);
                     }}
                   >
                     ویرایش
@@ -111,6 +132,8 @@ export default function Users() {
               type="text"
               className="edit-user-info-input"
               placeholder="مقدار جدید را وارد کنید"
+              value={userNewFirstName}
+              onChange={(event) => setUserNewFirstName(event.target.value)}
             />
           </div>
           <div className="edit-user-info-input-group">
@@ -121,6 +144,8 @@ export default function Users() {
               type="text"
               className="edit-user-info-input"
               placeholder="مقدار جدید را وارد کنید"
+              value={userNewLastName}
+              onChange={(event) => setUserNewLastName(event.target.value)}
             />
           </div>
           <div className="edit-user-info-input-group">
@@ -131,6 +156,8 @@ export default function Users() {
               type="text"
               className="edit-user-info-input"
               placeholder="مقدار جدید را وارد کنید"
+              value={userNewUsername}
+              onChange={(event) => setUserNewUsername(event.target.value)}
             />
           </div>
           <div className="edit-user-info-input-group">
@@ -141,6 +168,8 @@ export default function Users() {
               type="text"
               className="edit-user-info-input"
               placeholder="مقدار جدید را وارد کنید"
+              value={userNewPassword}
+              onChange={(event) => setUserNewPassword(event.target.value)}
             />
           </div>
           <div className="edit-user-info-input-group">
@@ -151,6 +180,8 @@ export default function Users() {
               type="text"
               className="edit-user-info-input"
               placeholder="مقدار جدید را وارد کنید"
+              value={userNewPhone}
+              onChange={(event) => setUserNewPhone(event.target.value)}
             />
           </div>
           <div className="edit-user-info-input-group">
@@ -161,6 +192,8 @@ export default function Users() {
               type="text"
               className="edit-user-info-input"
               placeholder="مقدار جدید را وارد کنید"
+              value={userNewCity}
+              onChange={(event) => setUserNewCity(event.target.value)}
             />
           </div>
           <div className="edit-user-info-input-group">
@@ -171,6 +204,8 @@ export default function Users() {
               type="text"
               className="edit-user-info-input"
               placeholder="مقدار جدید را وارد کنید"
+              value={userNewEmail}
+              onChange={(event) => setUserNewEmail(event.target.value)}
             />
           </div>
           <div className="edit-user-info-input-group">
@@ -181,6 +216,8 @@ export default function Users() {
               type="text"
               className="edit-user-info-input"
               placeholder="مقدار جدید را وارد کنید"
+              value={userNewAddress}
+              onChange={(event) => setUserNewAddress(event.target.value)}
             />
           </div>
           <div className="edit-user-info-input-group">
@@ -191,6 +228,8 @@ export default function Users() {
               type="text"
               className="edit-user-info-input"
               placeholder="مقدار جدید را وارد کنید"
+              value={userNewScore}
+              onChange={(event) => setUserNewScore(event.target.value)}
             />
           </div>
           <div className="edit-user-info-input-group">
@@ -201,6 +240,8 @@ export default function Users() {
               type="text"
               className="edit-user-info-input"
               placeholder="مقدار جدید را وارد کنید"
+              value={userNewBuy}
+              onChange={(event) => setUserNewBuy(event.target.value)}
             />
           </div>
         </EditModal>
