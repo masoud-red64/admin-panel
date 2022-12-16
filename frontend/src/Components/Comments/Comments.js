@@ -9,15 +9,26 @@ export default function Comments() {
   const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const [mainCommentBody, setMainCommentBody] = useState("");
+  const [commentID, setCommentID] = useState(null);
 
   useEffect(() => {
+    getAllComments();
+  });
+
+  const getAllComments = () => {
     fetch("http://localhost:7000/api/comments/")
       .then((res) => res.json())
       .then((comments) => setAllComments(comments));
-  });
+  };
 
   const deleteComment = () => {
-    setIsShowDeleteModal(false);
+    fetch(`http://localhost:7000/api/comments/${commentID}`, {
+      method: "DELETE",
+    }).then((res) => {
+      console.log(res);
+      setIsShowDeleteModal(false);
+      getAllComments();
+    });
   };
 
   return (
@@ -54,7 +65,10 @@ export default function Comments() {
                 <td>
                   <button
                     className="products-table-btn"
-                    onClick={() => setIsShowDeleteModal(true)}
+                    onClick={() => {
+                      setCommentID(comment.id);
+                      setIsShowDeleteModal(true);
+                    }}
                   >
                     حذف
                   </button>
