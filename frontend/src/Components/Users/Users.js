@@ -4,12 +4,15 @@ import "./Users.css";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import EditModal from "../EditModal/EditModal";
 import { AiOutlineDollarCircle } from "react-icons/ai";
+import DetailsModal from "../DetailsModal/DetailsModal";
 
 export default function Users() {
   const [allUsers, setAllUsers] = useState([]);
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
+  const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
   const [userID, setUserID] = useState(null);
+  const [mainUserInfos, setMainUserInfos] = useState({});
 
   const [userNewFirstName, setUserNewFirstName] = useState("");
   const [userNewLastName, setUserNewLastName] = useState("");
@@ -107,7 +110,15 @@ export default function Users() {
                   >
                     حذف
                   </button>
-                  <button className="products-table-btn">جزییات</button>
+                  <button
+                    className="products-table-btn"
+                    onClick={() => {
+                      setIsShowDetailsModal(true);
+                      setMainUserInfos(user);
+                    }}
+                  >
+                    جزییات
+                  </button>
                   <button
                     className="products-table-btn"
                     onClick={() => {
@@ -269,6 +280,29 @@ export default function Users() {
             />
           </div>
         </EditModal>
+      )}
+
+      {isShowDetailsModal && (
+        <DetailsModal onHide={() => setIsShowDetailsModal(false)}>
+          <table className="cms-table">
+            <thead>
+              <tr>
+                <th>شهر</th>
+                <th>آدرس</th>
+                <th>امتیاز </th>
+                <th>میزان خرید </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{mainUserInfos.city}</td>
+                <td>{mainUserInfos.address}</td>
+                <td>{mainUserInfos.score}</td>
+                <td>{mainUserInfos.buy}</td>
+              </tr>
+            </tbody>
+          </table>
+        </DetailsModal>
       )}
     </div>
   );
