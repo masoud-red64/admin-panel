@@ -41,3 +41,8 @@
 .cms-table td {
   padding: 20px;
 }
+
+.cms-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
