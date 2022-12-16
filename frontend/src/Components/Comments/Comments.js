@@ -13,6 +13,7 @@ export default function Comments() {
   const [commentID, setCommentID] = useState(null);
   const [isShowEditModal, setIsShowEditModal] = useState(false);
   const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
+  const [isShowRejectModal, setIsShowRejectModal] = useState(false);
 
   useEffect(() => {
     getAllComments();
@@ -67,6 +68,10 @@ export default function Comments() {
       });
   };
 
+  const rejectComment = () => {
+    setIsShowRejectModal(false);
+  };
+
   return (
     <div className="cms-main">
       {allComments.length ? (
@@ -119,7 +124,7 @@ export default function Comments() {
                     ویرایش
                   </button>
                   <button className="products-table-btn">پاسخ</button>
-                  {comment.isAccept === 0 && (
+                  {comment.isAccept === 0 ? (
                     <button
                       className="products-table-btn"
                       onClick={() => {
@@ -128,6 +133,17 @@ export default function Comments() {
                       }}
                     >
                       تایید
+                    </button>
+                  ) : (
+                    <button
+                      className="products-table-btn"
+                      style={{ backgroundColor: "red" }}
+                      onClick={() => {
+                        setIsShowRejectModal(true);
+                        setCommentID(comment.id);
+                      }}
+                    >
+                      رد
                     </button>
                   )}
                 </td>
@@ -176,6 +192,14 @@ export default function Comments() {
           cancel={() => setIsShowAcceptModal(false)}
           submit={acceptComment}
           title={"آیا از تایید اطمینان دارید؟"}
+        />
+      )}
+
+      {isShowRejectModal && (
+        <DeleteModal
+          cancel={() => setIsShowRejectModal(false)}
+          submit={rejectComment}
+          title={"آیا از رد کامنت اطمینان دارید؟"}
         />
       )}
     </div>
